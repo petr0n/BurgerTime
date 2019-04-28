@@ -1,38 +1,36 @@
-var express = require("express");
+let express = require('express');
+let router = express.Router();
 
-var router = express.Router();
+let burger = require('../models/burger.js');
 
-
-var cat = require("../models/burger.js");
-
-router.get("/", function(req, res) {
-  cat.all(function(data) {
-    var hbsObject = {
-      cats: data
+router.get('/', function(req, res) {
+  burger.all(function(data) {
+    var hbsObj = {
+      burgers: data
     };
-    console.log(hbsObject);
-    res.render("index", hbsObject);
+    console.log(hbsObj);
+    res.render('index', hbsObj);
   });
 });
 
-router.post("/api/cats", function(req, res) {
-  cat.create([
-    "name", "sleepy"
+router.post('/api/cats', function(req, res) {
+  burger.create([
+    'burgerName', 'devoured'
   ], [
-    req.body.name, req.body.sleepy
+    req.body.burgerName, req.body.devoured
   ], function(result) {
     // Send back the ID of the new quote
     res.json({ id: result.insertId });
   });
 });
 
-router.put("/api/cats/:id", function(req, res) {
-  var condition = "id = " + req.params.id;
+router.put('/api/burgers/:id', function(req, res) {
+  let id = 'id = ' + req.params.id;
 
-  console.log("condition", condition);
+  console.log('burger id:', id);
 
-  cat.update({
-    sleepy: req.body.sleepy
+  burger.update({
+    devoured: req.body.devoured
   }, condition, function(result) {
     if (result.changedRows == 0) {
       // If no rows were changed, then the ID must not exist, so 404
@@ -45,11 +43,12 @@ router.put("/api/cats/:id", function(req, res) {
 
 
 router.delete('/api/delete/:id',  function(req, res) {
-  let id = "id = " + req.params.id;
+  let id = 'id = ' + req.params.id;
 
-  cat.delete(id, function(result){
+  burger.delete(id, function(result){
     res.status(200).end();
   });
 });
-// Export routes for server.js to use.
+
+
 module.exports = router;
