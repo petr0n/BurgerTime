@@ -8,12 +8,12 @@ router.get('/', function(req, res) {
     var hbsObj = {
       burgers: data
     };
-    console.log(hbsObj);
+    // console.log(hbsObj);
     res.render('index', hbsObj);
   });
 });
 
-router.post('/api/cats', function(req, res) {
+router.post('/api/add', function(req, res) {
   burger.create([
     'burgerName', 'devoured'
   ], [
@@ -24,14 +24,11 @@ router.post('/api/cats', function(req, res) {
   });
 });
 
-router.put('/api/burgers/:id', function(req, res) {
-  let id = 'id = ' + req.params.id;
-
-  console.log('burger id:', id);
-
-  burger.update({
-    devoured: req.body.devoured
-  }, condition, function(result) {
+router.put('/api/burger/:id', function(req, res) {
+  let condition = 'id = ' + req.params.id;
+  let val = req.body.devoured ? true : false;
+  // console.log('condition', condition);
+  burger.update({ devoured: val }, condition, function(result) {
     if (result.changedRows == 0) {
       // If no rows were changed, then the ID must not exist, so 404
       return res.status(404).end();
@@ -43,9 +40,7 @@ router.put('/api/burgers/:id', function(req, res) {
 
 
 router.delete('/api/delete/:id',  function(req, res) {
-  let id = 'id = ' + req.params.id;
-
-  burger.delete(id, function(result){
+  burger.delete(req.params.id, function(result){
     res.status(200).end();
   });
 });

@@ -1,37 +1,53 @@
-<h1>BurgerTime</h1>
+<div class="jumbotron">
+  <h1>BurgerTime</h1>
+  <h2>Keep track of your favorite burgers!</h2>
+</div>
 
-<h2>Keep track of your favorite burgers!</h2>
-
-<h3>Burgers want to eat</h3>
-<ul>
-  {{#each burgers}}
-    {{#unless devoured}}
-      {{> burgers/burger devoured=true}}
-    {{/unless}}
-  {{/each}}
-</ul>
-
-<h2>Burgers you've eaten</h2>
-
-<ul>
-  {{#each burgers}}
-    {{#if devoured}}
-      {{> burgers/burger devoured=true}}
-    {{/if}}
-  {{/each}}
-</ul>
-
-<h2>Add Burger</h2>
-<form class="create-form">
-  <div class="form-group">
-    <label for="ca">Burger Name:</label>
-    <input type="text" id="burgerName" name="burgerName">
+<div class="row">
+  <div class="col-md-6">
+    <h3>Burgers want to eat</h3>
+    <ul>
+      {{#each burgers}}
+        {{#unless devoured}}
+          {{> burgers/burger devoured=false}}
+        {{/unless}}
+      {{/each}}
+    </ul>
   </div>
-  {{!-- 
-  <div class="form-group">
-    <label for="sleepy">Sleepy?</label><br>
-    <input type="radio" name="sleepy" value="1" checked> Sleepy!<br>
-    <input type="radio" name="sleepy" value="0"> Awake
-  </div> --}}
-  <button type="submit">Add Burger</button>
-</form>
+  <div class="col-md-6">
+    <h2>Burgers you've eaten</h2>
+    <ul>
+      {{#each burgers}}
+        {{#if devoured}}
+          {{> burgers/burger devoured=true}}
+        {{/if}}
+      {{/each}}
+    </ul>
+  </div>
+</div>
+<hr>
+
+<div class="row">
+  <div class="col-md-6">
+    <h2>Add Burger</h2>
+    <form class="create-form">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1"><i class="fas fa-hamburger"></i></span>
+        </div>
+        <input type="text" id="burgerName" name="burgerName" class="form-control form-control-lg" placeholder="Burger Name">
+      </div>
+      <div class="form-group">
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="devoured1" name="devoured" class="custom-control-input" value="1" checked>
+          <label class="custom-control-label" for="devoured1">I've eaten this</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="devoured2" name="devoured" class="custom-control-input" value="0">
+          <label class="custom-control-label" for="devoured2">I have not eaten this</label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Burger</button>
+    </form>
+  </div>
+</div>
