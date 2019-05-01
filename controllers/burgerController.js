@@ -36,7 +36,7 @@ router.put('/api/burger/:id', function(req, res) {
 
 router.delete('/api/delete/:id',  function(req, res) {
   burger.delete(req.params.id, function(result){
-    result.status(200).end();
+    res.status(200).end();
   });
 });
 
